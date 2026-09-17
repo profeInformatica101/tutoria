@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111f">
+  <title>Tutoría 3.º A · Dinámica de grupo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+</head>
+<body>
+  <main id="app" aria-label="Presentación interactiva de tutoría"></main>
+
+  <div id="topHint" class="top-hint">3.º A · Tutoría de grupo · 60 min</div>
+
+  <div id="countdown" class="countdown hidden" aria-live="polite"></div>
+
+  <div id="toast" class="toast hidden">
+    <div class="toast-label">RETO EXTRA</div>
+    <div id="toastText" class="toast-text"></div>
+  </div>
+
+  <section id="agreementPanel" class="agreement-panel hidden" aria-label="Construir acuerdo del grupo">
+    <div class="agreement-title">Nuestro acuerdo de 3.º A</div>
+    <div class="agreement-row">
+      <input id="agreementInput" maxlength="24" autocomplete="off"
+             placeholder="Escribe una palabra: respeto, ayuda...">
+      <button id="addAgreement">Añadir</button>
+      <button id="clearAgreement" class="secondary">Limpiar</button>
+    </div>
+    <div class="agreement-note">Las palabras añadidas aparecen en la pantalla y quedan guardadas en este navegador.</div>
+  </section>
+
+  <nav class="controls" aria-label="Controles del profesor">
+    <button id="prevBtn" title="Anterior (←)">← <span>Anterior</span></button>
+    <button id="minusBtn" class="compact" title="Restar un minuto">−1 min</button>
+    <button id="pauseBtn" class="primary" title="Pausa / continuar (Espacio)">Ⅱ <span>Pausa</span></button>
+    <button id="plusBtn" class="compact" title="Añadir un minuto">+1 min</button>
+    <button id="resetBtn" class="compact" title="Reiniciar tiempo (R)">↻</button>
+    <button id="challengeBtn" class="accent hidden" title="Reto extra aleatorio">Reto extra</button>
+    <button id="fullBtn" class="compact" title="Pantalla completa (F)">⛶</button>
+    <button id="nextBtn" title="Siguiente (→)"><span>Siguiente</span> →</button>
+  </nav>
+
+  <div id="help" class="help hidden">
+    <div class="help-card">
+      <button id="closeHelp" class="help-close" aria-label="Cerrar ayuda">×</button>
+      <h2>Controles rápidos</h2>
+      <div class="help-grid">
+        <div><kbd>←</kbd> <kbd>→</kbd><span>Cambiar de fase</span></div>
+        <div><kbd>Espacio</kbd><span>Pausar / continuar</span></div>
+        <div><kbd>R</kbd><span>Reiniciar el tiempo</span></div>
+        <div><kbd>F</kbd><span>Pantalla completa</span></div>
+        <div><kbd>H</kbd><span>Mostrar / ocultar ayuda</span></div>
+        <div><kbd>+ / −</kbd><span>Añadir / quitar 1 minuto</span></div>
+      </div>
+      <p>La web no cambia de fase al hacer clic sobre el fondo, evitando avances accidentales durante la clase.</p>
+    </div>
+  </div>
+
+  <button id="helpBtn" class="help-button" title="Ayuda (H)">?</button>
+
+  <script src="sketch.js"></script>
+</body>
+</html>
