@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿Tú qué votarías? · Vivienda · 3.º ESO · Campo de Tejada</title>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
+<style>
+:root{--bg:#111827;--card:#1f2937;--txt:#f9fafb;--muted:#cbd5e1;--yes:#16a34a;--no:#dc2626;--abs:#ca8a04;--blue:#2563eb}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+#app{min-height:100vh;display:flex;flex-direction:column}.top{display:flex;gap:12px;align-items:center;padding:14px 18px;background:#0b1220}
+.brand{font-weight:900}.progress{height:8px;flex:1;background:#334155;border-radius:99px;overflow:hidden}.bar{height:100%;background:#fff;width:0}
+main{width:min(1100px,94vw);margin:auto;padding:28px 0 90px}.slide{display:none;animation:in .3s ease}.slide.active{display:block}
+@keyframes in{from{opacity:.2;transform:translateY(10px)}}
+.kicker{font-weight:800;color:#93c5fd;text-transform:uppercase;letter-spacing:.08em}.hero{font-size:clamp(2rem,6vw,5rem);line-height:.98;margin:.2em 0}
+.lead{font-size:clamp(1.05rem,2vw,1.5rem);color:var(--muted);max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0}.card{background:var(--card);border:1px solid #475569;border-radius:20px;padding:22px}
+.card h3{margin-top:0}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.vote{min-height:150px;border:0;border-radius:20px;color:white;font-size:1.3rem;font-weight:900;cursor:pointer}.yes{background:var(--yes)}.no{background:var(--no)}.abs{background:var(--abs)}
+.vote.selected{outline:7px solid white}.big{font-size:clamp(2rem,8vw,6rem);font-weight:1000}.result{display:flex;height:70px;border-radius:16px;overflow:hidden;margin:24px 0}.result div{display:grid;place-items:center;font-weight:900;min-width:0}
+.pill{display:inline-block;padding:7px 12px;border-radius:99px;background:#334155;margin:4px}.party{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #475569}
+.controls{position:fixed;bottom:0;left:0;right:0;padding:12px 3vw;background:#0b1220;display:flex;justify-content:space-between;gap:10px}
+button.nav,a.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:800;cursor:pointer;text-decoration:none}.nav{background:white;color:#111827}.secondary{background:#334155!important;color:white!important}
+.sliderWrap{margin:26px 0}.sliderWrap input{width:100%}.scale{display:flex;justify-content:space-between;color:var(--muted)}
+.notice{padding:15px;border-left:5px solid #60a5fa;background:#172033;border-radius:10px;margin:18px 0}
+#p5holder canvas{max-width:100%;height:auto!important;border-radius:18px}
+@media(max-width:650px){.choices{grid-template-columns:1fr}.vote{min-height:90px}.controls{position:static}.top{position:sticky;top:0;z-index:5}}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="top"><div class="brand">🏛️ 3.º ESO · Campo de Tejada · Tú decides</div><div class="progress"><div class="bar" id="bar"></div></div><div id="count"></div></header>
+<main>
+<section class="slide active">
+<div class="kicker">Caso real · Congreso · 2 de octubre de 2026</div>
+<h1 class="hero">🏠 ¿Tú qué habrías votado?</h1>
+<p class="lead">Imagina que hoy no estás en clase en el IES Campo de Tejada. Estás sentado en un escaño del Congreso y tienes que decidir sobre una norma de vivienda que afecta a todo el país.</p>
+<div class="notice"><b>Regla:</b> primero conocerás algunas medidas y tomarás tu propia decisión. Las siglas de los partidos aparecerán después.</div>
+<div class="grid"><div class="card"><h3>1️⃣ Entiende</h3><p>Traducimos el texto legal a lenguaje normal.</p></div><div class="card"><h3>2️⃣ Piensa</h3><p>Verás situaciones que podrían ocurrir en cualquier pueblo o ciudad.</p></div><div class="card"><h3>3️⃣ Vota</h3><p>A favor, en contra o abstención.</p></div></div>
+</section>
+
+<section class="slide">
+<div class="kicker">Antes de empezar</div><h2 class="hero">¿Qué es un Real Decreto-ley?</h2>
+<p class="lead">Es una norma que el Gobierno puede aprobar cuando considera que hay una situación urgente. Entra en vigor, pero después el <b>Congreso tiene que decidir si la mantiene o la rechaza</b>.</p>
+<div class="card"><h3>En este juego</h3><p>El Gobierno aprobó el <b>RDL 26/2026</b>, sobre vivienda. El Congreso tuvo que votar si lo convalidaba.</p></div>
+<div class="notice">💡 No tienes que saber Derecho. Tu trabajo es entender las ideas principales, hacer preguntas y justificar tu decisión.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Del BOE a lenguaje de 3.º ESO</div><h2 class="hero">¿Qué quería cambiar?</h2>
+<p class="lead">El texto tenía 20 artículos y muchas medidas. Estas son algunas de las más fáciles de relacionar con la vida diaria.</p>
+<div class="grid">
+<div class="card"><h3>🛑 Personas vulnerables</h3><p>Proteger en determinados casos a personas que podían perder su vivienda y no tenían otra casa donde vivir.</p></div>
+<div class="card"><h3>🏢 Compra especulativa</h3><p>Limitar temporalmente determinadas compras de viviendas por empresas dedicadas a adquirir inmuebles cuando se compraran por debajo del 70 % de su valor de tasación.</p></div>
+<div class="card"><h3>🔑 Alquiler</h3><p>Cambiar reglas de los contratos y crear incentivos fiscales relacionados con el precio del alquiler.</p></div>
+<div class="card"><h3>🏘️ Vivienda asequible</h3><p>Incluir medidas para aumentar la oferta de viviendas a precios más accesibles.</p></div>
+</div>
+<p><a class="btn secondary" target="_blank" rel="noopener" href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20266">📜 Comprobar el texto original en el BOE</a></p>
+</section>
+
+<section class="slide">
+<div class="kicker">Situación 1 · Cerca de nosotros</div><h2 class="hero">🏠 Una familia pierde su vivienda</h2>
+<p class="lead">Imagina una familia de un pueblo como Paterna del Campo. Sus ingresos han caído mucho. Cumple legalmente los requisitos para ser considerada vulnerable y no tiene otra vivienda disponible.</p>
+<div class="card"><h3>La pregunta</h3><p>¿Crees que, en determinados casos y cumpliendo requisitos, debería poder <b>pararse temporalmente el desahucio</b> mientras se busca una alternativa?</p></div>
+<div class="sliderWrap"><input id="case1" type="range" min="0" max="100" value="50"><div class="scale"><span>0 · Nada de acuerdo</span><b id="case1Val">50</b><span>100 · Totalmente de acuerdo</span></div></div>
+<div class="notice">⚠️ La norma no decía «se prohíben todos los desahucios». Establecía condiciones y situaciones concretas.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Situación 2 · Mercado de vivienda</div><h2 class="hero">🏢 Una empresa compra muy barato</h2>
+<p class="lead">Imagina que una empresa cuyo negocio incluye comprar inmuebles encuentra varias viviendas tasadas en 100.000 € cada una y puede adquirirlas por menos de 70.000 €.</p>
+<div class="card"><h3>La propuesta</h3><p>Hasta el 31 de diciembre de 2028, el RDL limitaba determinadas compras de este tipo. Había excepciones, por ejemplo, si la vivienda se destinaba durante al menos cinco años a vivienda habitual asequible o social.</p></div>
+<div class="sliderWrap"><input id="case2" type="range" min="0" max="100" value="50"><div class="scale"><span>0 · No limitar</span><b id="case2Val">50</b><span>100 · Limitar</span></div></div>
+</section>
+
+<section class="slide">
+<div class="kicker">Situación 3 · Alquiler</div><h2 class="hero">🔑 ¿Cómo conseguimos alquileres más baratos?</h2>
+<p class="lead">Una de las ideas del decreto era utilizar <b>incentivos fiscales</b>: en ciertos nuevos contratos, un propietario que redujera el alquiler podía obtener una reducción fiscal mayor si cumplía las condiciones establecidas.</p>
+<div class="card"><h3>Ejemplo sencillo</h3><p>En lugar de pensar solo en «prohibir subir precios», piensa en otra posibilidad: <b>premiar fiscalmente a quien alquila más barato</b>.</p></div>
+<div class="sliderWrap"><input id="case3" type="range" min="0" max="100" value="50"><div class="scale"><span>0 · Mala idea</span><b id="case3Val">50</b><span>100 · Buena idea</span></div></div>
+<div class="notice">🤔 Pregunta para clase: ¿quién pagaría indirectamente el coste de esa ventaja fiscal? ¿Podría funcionar? ¿Qué inconvenientes tendría?</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Pensamiento crítico</div><h2 class="hero">Una ley no es una sola pregunta</h2>
+<p class="lead">Puedes estar de acuerdo con proteger a una familia vulnerable y, al mismo tiempo, no estar de acuerdo con otra parte del decreto. O al revés.</p>
+<div class="grid"><div class="card"><h3>👍 Razón para apoyar</h3><p>«Creo que estas medidas pueden ayudar a que la vivienda sea más accesible y proteger a quien está en una situación difícil.»</p></div><div class="card"><h3>👎 Razón para rechazar</h3><p>«Creo que algunas medidas pueden tener efectos negativos, reducir la oferta o que deberían hacerse de otra forma.»</p></div></div>
+<div class="notice"><b>Importante:</b> son argumentos para analizar. No tienes que elegir el que diga el profesor.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Tu escaño</div><h2 class="hero">🗳️ Ahora decides tú</h2>
+<p class="lead">Ya conoces varias medidas. Si fueras diputado o diputada y tuvieras que votar <b>el decreto completo</b>, ¿qué harías?</p>
+<div class="choices"><button class="vote yes" data-vote="A favor">▲ A FAVOR</button><button class="vote no" data-vote="En contra">◆ EN CONTRA</button><button class="vote abs" data-vote="Abstención">● ME ABSTENGO</button></div>
+<div id="voteMsg" class="notice" style="display:none"></div>
+</section>
+
+<section class="slide">
+<div class="kicker">Antes de descubrirlo</div><h2 class="hero">🔮 Haz tu predicción</h2>
+<p class="lead">El Congreso tiene 350 diputados. ¿Qué porcentaje crees que votó a favor?</p>
+<div class="sliderWrap"><input id="guess" type="range" min="0" max="100" value="50"><div class="scale"><span>0 %</span><b id="guessVal">50 %</b><span>100 %</span></div></div>
+<div id="p5holder"></div>
+</section>
+
+<section class="slide">
+<div class="kicker">Resultado real · 2 octubre 2026</div><h2 class="hero">172 — 178</h2>
+<p class="lead"><b>172 diputados votaron a favor y 178 en contra.</b> Por tanto, el Congreso rechazó la convalidación del RDL 26/2026.</p>
+<div class="result"><div style="width:49.14%;background:var(--yes)">172 SÍ</div><div style="width:50.86%;background:var(--no)">178 NO</div></div>
+<div class="notice" id="compare"></div>
+</section>
+
+<section class="slide">
+<div class="kicker">Ahora sí</div><h2 class="hero">🏛️ ¿Quién votó qué?</h2>
+<p class="lead">Las informaciones publicadas sobre la votación sitúan a <b>PP, Vox, Junts y UPN</b> en el voto contrario. El resto de apoyos que sumaron 172 respaldaron la convalidación.</p>
+<div class="grid"><div class="card"><h3>🟢 172 votos</h3><p>A favor de convalidar el decreto.</p></div><div class="card"><h3>🔴 178 votos</h3><p>PP, Vox, Junts y UPN votaron en contra.</p></div></div>
+<div class="notice"><b>No saques una conclusión demasiado rápida:</b> votar NO al decreto completo no demuestra por sí solo estar en contra de cada medida que contenía.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">La parte importante</div><h2 class="hero">🧠 ¿Has pensado por ti mismo?</h2>
+<p class="lead">Compara tu decisión inicial con lo que acabas de descubrir. Coincidir con un partido en una votación <b>no significa ser de ese partido</b>.</p>
+<div class="card"><h3>Debate de 3.º ESO</h3><p>Si pudieras escribir tu propia propuesta para un pueblo como Paterna del Campo: <b>¿qué harías para que un joven pudiera vivir aquí cuando sea adulto sin tener que marcharse porque no encuentra vivienda?</b></p></div>
+<div class="sliderWrap"><input id="after" type="range" min="0" max="100" value="50"><div class="scale"><span>He cambiado mucho de opinión</span><b id="afterVal">50</b><span>Mantengo mi decisión</span></div></div>
+<div class="notice">🎯 El objetivo no es decirte qué votar. Es aprender a leer una propuesta, comprobar una fuente, escuchar argumentos y formar tu propia opinión.</div>
+</section>
+</main>
+<div class="controls"><button id="prev" class="nav secondary">← Anterior</button><button id="next" class="nav">Siguiente →</button></div>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')]; let i=0, vote=null;
+const bar=document.getElementById('bar'), count=document.getElementById('count');
+function show(n){
+ i=Math.max(0,Math.min(slides.length-1,n));
+ slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+ bar.style.width=((i+1)/slides.length*100)+'%';
+ count.textContent=(i+1)+'/'+slides.length;
+ document.getElementById('prev').disabled=i===0;
+ document.getElementById('next').textContent=i===slides.length-1?'Reiniciar ↻':'Siguiente →';
+ if(i===9){
+   document.getElementById('compare').innerHTML=vote
+    ?'Tu voto fue <b>'+vote+'</b>. Compáralo con el 172–178. Una coincidencia en una votación concreta no define tu ideología.'
+    :'No registraste voto. Puedes volver atrás si quieres participar.';
+ }
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('next').addEventListener('click',()=>i===slides.length-1?show(0):show(i+1));
+document.getElementById('prev').addEventListener('click',()=>show(i-1));
+document.querySelectorAll('.vote').forEach(b=>b.addEventListener('click',()=>{
+ vote=b.dataset.vote;
+ document.querySelectorAll('.vote').forEach(x=>x.classList.remove('selected'));
+ b.classList.add('selected');
+ const m=document.getElementById('voteMsg');
+ m.style.display='block';
+ m.textContent='✓ Voto registrado: '+vote+'. Todavía no sabes qué votaron los partidos.';
+}));
+function bind(id,out,suffix=''){
+ const e=document.getElementById(id),o=document.getElementById(out);
+ if(e&&o)e.addEventListener('input',()=>o.textContent=e.value+suffix);
+}
+bind('case1','case1Val'); bind('case2','case2Val'); bind('case3','case3Val');
+bind('guess','guessVal',' %'); bind('after','afterVal');
+new p5(p=>{
+ p.setup=()=>{let c=p.createCanvas(800,180);c.parent('p5holder');p.noLoop()};
+ p.draw=()=>{
+   p.background(31,41,55);
+   let v=Number(document.getElementById('guess').value);
+   p.noStroke(); p.fill(22,163,74); p.rect(30,65,740*v/100,55,12);
+   p.fill(220,38,38); p.rect(30+740*v/100,65,740*(100-v)/100,55,12);
+   p.fill(255); p.textAlign(p.CENTER,p.CENTER); p.textSize(24);
+   p.text('Tu predicción: '+v+' % a favor',400,35);
+ };
+ document.getElementById('guess').addEventListener('input',()=>p.redraw());
+});
+show(0);
+</script>
+</body></html>
